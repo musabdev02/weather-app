@@ -1,0 +1,7 @@
+@import url('main.css');
+#app{
+    width: 650px;
+    height: auto;
+    border: 1px solid var(--white-color);
+    height: 90%;
+}
