@@ -2,6 +2,11 @@
 #app{
     width: 650px;
     height: auto;
-    border: 1px solid var(--white-color);
     height: 90%;
 }
+/* overview */
+.overview{flex-direction: column; color: #fff; height: 100%; justify-content: center;}
+.overview img{width: 400px;object-fit: cover;}
+.overview h3{font-size: 59px; margin-block-start: 24px;}
+.overview p{font-size: 19px; color: gray;}
+.overview button{margin-block-start: 34px;}
