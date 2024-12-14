@@ -6,6 +6,7 @@
 }
 body{margin: 0; padding: 0; box-sizing: border-box; font-family: "Poppins", sans-serif; background: var(--background); display: flex; align-items: center; justify-content: center; height: 100vh;}
 h1,h2,h3,h4,h5,h6{font-weight: 600;}
+input{font-family: "Poppins", sans-serif;}
 input:focus{outline: none;}
 a{text-decoration: underline; color: #000;}
 button{font-family: "Poppins", sans-serif; font-weight: 500;}
