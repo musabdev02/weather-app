@@ -20,7 +20,7 @@ const search_history = document.querySelector(".search_history");
 const history_container = document.querySelector(".history_container");
 const histroyTitle = document.querySelector(".histroy_content h4");
 const historyTemp = document.querySelector(".history_card h2");
-
+const clearBtn = document.querySelector(".search_history_content p");
 
 // others
 let usrInp;
@@ -33,11 +33,11 @@ const fetchWeather = async (city) => {
 
     try {
         const res = await fetch(URL);
-        if (res.cod !== 200) {
-            console.log("error")
+        const data = await res.json();
+        if (data.cod !== 200) {
+            console.log(data.cod)
         }
         else {
-            const data = await res.json();
             locationTitle.textContent = data.name;
             locationTemp.textContent = `${data.main.temp.toFixed(2)}°`;
             wind.textContent = `${data.wind.speed}km/h`;
@@ -93,7 +93,13 @@ const createhistoryCards = (title, temp) => {
     newElem.innerHTML = historyRaw;
     history_container.appendChild(newElem);
 };
-
+clearBtn.addEventListener("click", ()=>{
+    if(confirm("Sure to delete All history?")){
+        localStorage.clear();
+        search_history.style.display = "none";
+        history_container.innerHTML = "";
+    };
+})
 const appendCardInDom = () => {
     const searchHistory = JSON.parse(localStorage.getItem("userHistory"));
     if (searchHistory !== null) {
