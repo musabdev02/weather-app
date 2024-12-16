@@ -86,11 +86,21 @@ getData.addEventListener("click", () => {
 // 
 const historyCards = () => {
     const userHistory = JSON.parse(localStorage.getItem("userHistory")) ?? [];
-    userHistory.push({
-        title: uTitle,
-        temp: uTemp
+    let isSaved = false;
+    userHistory.forEach((e)=>{
+        if(uTitle === e.title){
+            isSaved = true;
+        };
     });
-    localStorage.setItem("userHistory", JSON.stringify(userHistory));
+    if(userHistory.length <= 8){
+        if(!isSaved){
+             userHistory.push({
+                title: uTitle,
+                temp: uTemp
+            });
+        }
+        localStorage.setItem("userHistory", JSON.stringify(userHistory));
+    };
 };
 const createhistoryCards = (title, temp) => {
     const historyRaw = `<div class="histroy_content">
@@ -107,9 +117,9 @@ const createhistoryCards = (title, temp) => {
 history_card.addEventListener("click", (elem)=>{
     if([...elem.target.classList].find(cls => cls.startsWith("history_card"))){
         searchFromHistory = elem.target.childNodes[0].childNodes[1].textContent.toLowerCase();
-    }
-    searchToMain();
-    fetchWeather(usrInp, searchFromHistory);
+        searchToMain();
+        fetchWeather(usrInp, searchFromHistory);
+    };
 });
 
 
