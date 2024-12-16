@@ -21,15 +21,23 @@ const history_container = document.querySelector(".history_container");
 const histroyTitle = document.querySelector(".histroy_content h4");
 const historyTemp = document.querySelector(".history_card h2");
 const clearBtn = document.querySelector(".search_history_content p");
+let history_card = document.querySelector(".history_container");
 
 // others
 let usrInp;
 let uTitle;
 let uTemp;
+let searchFromHistory = "";
 // get the data API
-const fetchWeather = async (city) => {
+const fetchWeather = async (city, hUserSearch) => {
     const API_KEY = "e9f0eb3b47eae03cf027f9a5ab69936c";
-    const URL = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}&units=metric`;
+    let URL;
+    if(hUserSearch !== ""){
+        URL = `https://api.openweathermap.org/data/2.5/weather?q=${hUserSearch}&appid=${API_KEY}&units=metric`;
+    }
+    else{
+        URL = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}&units=metric`;
+    }
 
     try {
         const res = await fetch(URL);
@@ -64,15 +72,17 @@ const fetchWeather = async (city) => {
     }
 };
 
+const searchToMain = () =>{
+    search_form.style.display = "none";
+    main.style.display = "flex";
+}
 getData.addEventListener("click", () => {
     usrInp = userSearch.value.toLowerCase();
     if (usrInp !== "") {
-        search_form.style.display = "none";
-        main.style.display = "flex";
-        fetchWeather(usrInp);
+        searchToMain();
+        fetchWeather(usrInp, searchFromHistory);
     }
 });
-
 // 
 const historyCards = () => {
     const userHistory = JSON.parse(localStorage.getItem("userHistory")) ?? [];
@@ -92,14 +102,24 @@ const createhistoryCards = (title, temp) => {
     newElem.classList.add("history_card", "dp_flex");
     newElem.innerHTML = historyRaw;
     history_container.prepend(newElem);
+    history_card = document.querySelector(".history_container");  
 };
+history_card.addEventListener("click", (elem)=>{
+    if([...elem.target.classList].find(cls => cls.startsWith("history_card"))){
+        searchFromHistory = elem.target.childNodes[0].childNodes[1].textContent.toLowerCase();
+    }
+    searchToMain();
+    fetchWeather(usrInp, searchFromHistory);
+});
+
+
 clearBtn.addEventListener("click", ()=>{
     if(confirm("Sure to delete All history?")){
         localStorage.clear();
         search_history.style.display = "none";
         history_container.innerHTML = "";
     };
-})
+});
 const appendCardInDom = () => {
     const searchHistory = JSON.parse(localStorage.getItem("userHistory"));
     if (searchHistory !== null) {
