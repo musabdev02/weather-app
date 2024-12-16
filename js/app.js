@@ -91,7 +91,7 @@ const createhistoryCards = (title, temp) => {
     const newElem = document.createElement("div");
     newElem.classList.add("history_card", "dp_flex");
     newElem.innerHTML = historyRaw;
-    history_container.appendChild(newElem);
+    history_container.prepend(newElem);
 };
 clearBtn.addEventListener("click", ()=>{
     if(confirm("Sure to delete All history?")){
