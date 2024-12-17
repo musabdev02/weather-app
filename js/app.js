@@ -2,6 +2,9 @@
 const userSearch = document.getElementById("userSearch");
 const getData = document.querySelector(".search_inps button");
 const search_form = document.querySelector(".search_form");
+// overview
+const overview = document.querySelector(".overview");
+const overviewBtn = document.querySelector(".overview button");
 // main
 const main = document.querySelector(".main");
 const searchAnother = document.querySelector(".main button");
@@ -28,6 +31,7 @@ let usrInp;
 let uTitle;
 let uTemp;
 let searchFromHistory = "";
+let isFirstTime = true;
 // get the data API
 const fetchWeather = async (city, hUserSearch) => {
     const API_KEY = "e9f0eb3b47eae03cf027f9a5ab69936c";
@@ -71,11 +75,20 @@ const fetchWeather = async (city, hUserSearch) => {
         console.error(error);
     }
 };
-
+// navigations
+overviewBtn.addEventListener("click", ()=>{
+    if(isFirstTime){
+        overview.style.display = "none";
+        search_form.style.display = "block";
+        isFirstTime = false;
+        localStorage.setItem("isFirstTime", isFirstTime);
+    };
+});
 const searchToMain = () =>{
     search_form.style.display = "none";
     main.style.display = "flex";
-}
+};
+
 getData.addEventListener("click", () => {
     usrInp = userSearch.value.toLowerCase();
     if (usrInp !== "") {
@@ -137,6 +150,11 @@ const appendCardInDom = () => {
         searchHistory.forEach(element => {
             createhistoryCards(element.title, element.temp);
         });
+    };
+    let checkFirstTime = localStorage.getItem("isFirstTime");
+    if(Boolean(checkFirstTime)){
+        search_form.style.display = "block";
+        overview.style.display = "none";
     }
 };
 

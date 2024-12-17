@@ -1,7 +1,7 @@
 @import url('main.css');
 #app{width: 650px;height: auto;height: 90%;}
 /* overview */
-.overview{flex-direction: column; color: #fff; height: 100%; justify-content: center; display: none;}
+.overview{flex-direction: column; color: #fff; height: 100%; justify-content: center; display: flex;}
 .overview img{width: 400px;object-fit: cover;}
 .overview h3{font-size: 59px; margin-block-start: 24px;}
 .overview p{font-size: 19px; color: gray;}
@@ -23,7 +23,7 @@
 .option h4{color: gray; margin-block-end: 14px; text-transform: uppercase; font-size: 14px;}
 .option h2{font-size: 30px;}
 /* search_form */
-.search_form{color: #fff; padding: 34px; display: block;}
+.search_form{color: #fff; padding: 34px; display: none;}
 .search_form h3{font-size: 28px; color: gray;}
 .search_inps{margin-block-start: 14px;}
 .search_inps input{background: #202B3B; color: #fff; width: 88%; height: 56px; font-size: 16px; padding: 0px 12px; border-radius: 12px 0px 0px 12px; border: none; }
